@@ -5,6 +5,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/SSA-Web-Api/pom.xml" />
+        <option value="$PROJECT_DIR$/../ApplicationRegistrationService/ApplicationRegistrationService/pom.xml" />
+        <option value="$PROJECT_DIR$/../DataCollectionService/DataCollectionService/pom.xml" />
       </list>
     </option>
   </component>
