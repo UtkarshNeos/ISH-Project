@@ -40,9 +40,14 @@ public class DcMgmtServiceImpl implements DcMgmtService {
         return 0;
     }
 
+
     @Override
-    public List<String> showAllPlans() {
-        return List.of();
+    public List<String> showAllPlanNames() {
+        List<PlanEntity> plansList = planRepository.findAll();
+//        get only plansname using stream Api
+        List<String> planNamesList = plansList.stream().map(plan->plan.getPlanName()).toList();
+
+        return planNamesList;
     }
 
     @Override
@@ -97,7 +102,8 @@ public class DcMgmtServiceImpl implements DcMgmtService {
             dcChildrenRepository.save(childEntity);
 
         });
-        return children.get(0).getCaseNO();
+        //return case number
+        return children.get(0).getCaseNo();
     }
 
     @Override
@@ -109,13 +115,19 @@ public class DcMgmtServiceImpl implements DcMgmtService {
         Optional<DcCaseEntity> optCaseEntity = caseRepo.findById(caseNo);
         //get the planName
         String planName= null;
+        Integer appId = null;
+
         if(optCaseEntity.isPresent()){
-            Integer planId = optCaseEntity.get().getPlanId();
+            DcCaseEntity caseEntity = new DcCaseEntity();
+            Integer planId = caseEntity.getPlanId();
+            appId =caseEntity.getAppId();
             Optional<PlanEntity> optionalPlanEntity=planRepository.findById(planId);
             if(optionalPlanEntity.isPresent()){
                 planName= optionalPlanEntity.get().getPlanName();
             }
         }
+       Optional<CitizenApplicationEntity>   optCitizenEntity =citizenAppRepo.findById(appId);
+        CitizenApplicationEntity citizenEntity =null;
 
         //convert entity obj to binding object
 
@@ -123,9 +135,33 @@ public class DcMgmtServiceImpl implements DcMgmtService {
         BeanUtils.copyProperties(incomeEntity,income);
 
         EducationInputs educationInputs = new EducationInputs();
-        BeanUtils.copyProperties(educationEntity,educationInputs);
-        List<ChildInputs> listChild = new ArrayList();
-        ????
-        return null;
+        BeanUtils.copyProperties(educationEntity, educationInputs);
+
+//        List<ChildInputs> listChild = new ArrayList<>();
+//        for (DcChildrenEntity childEntity :  dcList) {
+//            ChildInputs childInputs = new ChildInputs();
+//            BeanUtils.copyProperties(childEntity, childInputs);
+//            listChild.add(childInputs);
+//        }
+        List<ChildInputs> listChild= new ArrayList<>();
+        dcList.forEach(childEntity->{
+            ChildInputs childInputs = new ChildInputs();
+            BeanUtils.copyProperties(childEntity,childInputs);
+            listChild.add(childInputs);
+        });
+        CitizenAppRegistraionInputs citizen = new CitizenAppRegistraionInputs();
+        BeanUtils.copyProperties(citizenEntity,citizen);
+
+        // prepare dcSummary
+        DcSummaryReport report = new DcSummaryReport();
+        report.setPlanName(planName);
+        report.setIncomeDetails(income);
+        report.setEducationDetails(educationInputs);
+        report.setCitizenDetails(citizen);
+        report.setChildrenDetails(listChild);
+
+
+
+        return report;
     }
 }

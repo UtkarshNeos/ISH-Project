@@ -6,7 +6,6 @@ import java.util.List;
 
 @Data
 public class DcSummaryReport {
-    private  PlanSelectionInputs planDetails;
     private  EducationInputs educationDetails;
     private List<ChildInputs> childrenDetails;
     private IncomeInputs incomeDetails;

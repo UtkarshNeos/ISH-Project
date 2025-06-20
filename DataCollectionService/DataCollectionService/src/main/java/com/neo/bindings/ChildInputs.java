@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Data
 public class ChildInputs {
     private Integer childId;
-    private Integer caseNO;
+    private Integer caseNo;
     private LocalDate childDOB;
     private Long childSSN;
 
