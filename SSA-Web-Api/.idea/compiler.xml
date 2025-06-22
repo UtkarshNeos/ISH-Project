@@ -3,7 +3,7 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-      <profile name="Annotation profile for DataCollectionService" enabled="true">
+      <profile name="Annotation profile for EligibilityDetemination" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -11,6 +11,7 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
         <module name="SSA-Web-Api" />
+        <module name="EligibilityDetemination" />
         <module name="DataCollectionService" />
         <module name="ApplicationRegistrationService" />
       </profile>
@@ -20,6 +21,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApplicationRegistrationService" options="-parameters" />
       <module name="DataCollectionService" options="-parameters" />
+      <module name="EligibilityDetemination" options="-parameters" />
       <module name="SSA-Web-Api" options="-parameters" />
     </option>
   </component>
